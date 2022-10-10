@@ -1,0 +1,82 @@
+PROCEDURE dot_product(V1,V2: ARRAY_OF FLOAT[3], VAR ps: FLOAT)
+
+VAR
+    i : INTEGER;
+BEGIN
+    Read(V1);
+    Read(V2);
+    
+    FOR i FROM 0 TO V1.length-1 DO
+        ps := ps + V1[i] * V2[i];
+    END_FOR
+
+    Write(ps)
+END
+
+ALGORITHM DOT_PRODUCT
+VAR
+    vectors: ARRAY_OF (ARRAY_OF FLOAT[3])[3]:= [[1, -1, 1],  [1, 0, 1], [0, 0, 0]];
+    j, k: INTEGER;
+    dp: FLOAT:= 0;
+BEGIN
+
+    FOR k FROM 0 TO vectors.length-2 DO
+        FOR j FROM k+1 TO vectors.length DO
+            IF (vectors[k].length = vectors[j].length) THEN
+                dot_product(vectors[k],vectors[j], dp);
+                IF (dp = 0) THEN
+                    Write(vectors[k], "and ", vectors[j], " are orthogonal");
+                ELSE
+                    Write(vectors[k], " and", vectors[j], " are not orthogonal");
+                END_IF
+            ELSE
+                Write(vectors[k], " and ", vectors[j], " Don't have the same length.");
+            END_IF
+        END_FOR
+    END_FOR
+END
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////
+
+FUNCTION dot_product(V1,V2: ARRAY_OF FLOAT[3], ps: FLOAT) : FLOAT
+
+VAR
+    i : INTEGER;
+
+BEGIN
+    Read(V1);
+    Read(V2);
+    
+    FOR i FROM 0 TO V1.length-1 DO
+        ps := ps + V1[i] * V2[i];
+    END_FOR
+
+    RETURN ps;
+END
+
+ALGORITHM DOT_PRODUCT
+VAR
+    vectors: ARRAY_OF (ARRAY_OF FLOAT[3])[3]:= [[1, -1, 1], [1, 0, 1], [0, 0, 0]];
+    j, k: INTEGER;
+    dp: FLOAT:= 0;
+    dot_p : FLOAT;
+BEGIN
+
+    FOR k FROM 0 TO vectors.length-2 DO
+        FOR j FROM k+1 TO vectors.length DO
+            IF (vectors[k].length = vectors[j].length) THEN
+                dot_p := dot_product(vectors[k],vectors[j]);
+                IF (dot_p = 0) THEN
+                    Write(vectors[k], "and" , vectors[j], "are orthogonal");
+                ELSE
+                    Write(vectors[k], "and" , vectors[j], "are not orthogonal");
+                END_IF
+            ELSE
+                Write(vectors[k], " and ", vectors[j], " Don't have the same length.");
+            END_IF
+        END_FOR
+    END_FOR
+END
